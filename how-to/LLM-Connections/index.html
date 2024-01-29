@@ -1,0 +1,1123 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Human-Input-on-Execution/">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.6">
+    
+    
+      
+        <title>Connect CrewAI to LLMs - crewAI Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.50c56a3b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#connect-crewai-to-llms" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="crewAI Documentation" class="md-header__button md-logo" aria-label="crewAI Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            crewAI Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Connect CrewAI to LLMs
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../getting-started/" class="md-tabs__link">
+        
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../core-concepts/Agent-Tools/" class="md-tabs__link">
+          
+  
+  Core concepts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../Creating-a-Crew-and-kick-it-off/" class="md-tabs__link">
+          
+  
+  How to
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="crewAI Documentation" class="md-nav__button md-logo" aria-label="crewAI Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    crewAI Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Core concepts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Core concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-concepts/Agent-Tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is a Tool?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-concepts/Creating-Tasks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is a Task?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-concepts/Defining-Tasks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview of a Task
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-concepts/Delegation-and-Collaboration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How Agents Collaborate:
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-concepts/Managing-Processes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Managing Processes in CrewAI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-concepts/Understanding-Agents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is an Agent?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    How to
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            How to
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Creating-a-Crew-and-kick-it-off/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Get a crew working
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Customizing-Agents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Customizable Attributes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Human-Input-on-Execution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Human Input on Execution
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Connect CrewAI to LLMs
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Connect CrewAI to LLMs
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ollama
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ollama">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting Up Ollama
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integrating-ollama-with-crewai" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integrating Ollama with CrewAI
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-ai-compatible-api-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Open AI Compatible API Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Open AI Compatible API Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#open-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      Open AI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fastchat" class="md-nav__link">
+    <span class="md-ellipsis">
+      FastChat
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lm-studio" class="md-nav__link">
+    <span class="md-ellipsis">
+      LM Studio
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mistral-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mistral API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#text-gen-web-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      text-gen-web-ui
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-inference-api-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other Inference API Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Other Inference API Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#azure-open-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure Open AI
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ollama
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ollama">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting Up Ollama
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integrating-ollama-with-crewai" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integrating Ollama with CrewAI
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-ai-compatible-api-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Open AI Compatible API Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Open AI Compatible API Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#open-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      Open AI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fastchat" class="md-nav__link">
+    <span class="md-ellipsis">
+      FastChat
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lm-studio" class="md-nav__link">
+    <span class="md-ellipsis">
+      LM Studio
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mistral-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mistral API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#text-gen-web-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      text-gen-web-ui
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-inference-api-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other Inference API Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Other Inference API Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#azure-open-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure Open AI
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="connect-crewai-to-llms">Connect CrewAI to LLMs</h1>
+<p>There are different types of connections.
+Ollama is the recommended way to connect to local LLMs.
+Azure uses a slightly different API and therefore has it's own connection object.</p>
+<p>crewAI is compatible with any of the LangChain LLM components. See this page for more information: https://python.langchain.com/docs/integrations/llms/</p>
+<h2 id="ollama">Ollama</h2>
+<p>crewAI supports integration with local models thorugh <a href="https://ollama.ai/">Ollama</a> for enhanced flexibility and customization. This allows you to utilize your own models, which can be particularly useful for specialized tasks or data privacy concerns. We will conver other options for using local models in later sections. However, ollama is the recommended tool to use to host local models when possible.</p>
+<h3 id="setting-up-ollama">Setting Up Ollama</h3>
+<ul>
+<li><strong>Install Ollama</strong>: Ensure that Ollama is properly installed in your environment. Follow the installation guide provided by Ollama for detailed instructions.</li>
+<li><strong>Configure Ollama</strong>: Set up Ollama to work with your local model. You will probably need to <a href="https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md">tweak the model using a Modelfile</a>. I'd recommend adding <code>Observation</code> as a stop word and playing with <code>top_p</code> and <code>temperature</code>.</li>
+</ul>
+<h3 id="integrating-ollama-with-crewai">Integrating Ollama with CrewAI</h3>
+<ul>
+<li>Instantiate Ollama Model: Create an instance of the Ollama model. You can specify the model and the base URL during instantiation. For example:</li>
+</ul>
+<pre><code class="language-python">from langchain.llms import Ollama
+ollama_openhermes = Ollama(model=&quot;openhermes&quot;)
+# Pass Ollama Model to Agents: When creating your agents within the CrewAI framework, you can pass the Ollama model as an argument to the Agent constructor. For instance:
+
+local_expert = Agent(
+  role='Local Expert at this city',
+  goal='Provide the BEST insights about the selected city',
+  backstory=&quot;&quot;&quot;A knowledgeable local guide with extensive information
+  about the city, it's attractions and customs&quot;&quot;&quot;,
+  tools=[
+    SearchTools.search_internet,
+    BrowserTools.scrape_and_summarize_website,
+  ],
+  llm=ollama_openhermes, # Ollama model passed here
+  verbose=True
+)
+</code></pre>
+<h2 id="open-ai-compatible-api-endpoints">Open AI Compatible API Endpoints</h2>
+<p>In the context of integrating various language models with CrewAI, the flexibility to switch between different API endpoints is a crucial feature. By utilizing environment variables for configuration details such as <code>OPENAI_API_BASE_URL</code>, <code>OPENAI_API_KEY</code>, and <code>MODEL_NAME</code>, you can easily transition between different APIs or models. For instance, if you want to switch from using the standard OpenAI GPT model to a custom or alternative version, simply update the values of these environment variables. </p>
+<p>The <code>OPENAI_API_BASE_URL</code> variable allows you to define the base URL of the API to connect to, while <code>OPENAI_API_KEY</code> is used for authentication purposes. Lastly, the <code>MODEL_NAME</code> variable specifies the particular language model to be used, such as "gpt-3.5-turbo" or any other available model. </p>
+<p>This method offers an easy way to adapt the system to different models or plataforms, be it for testing, scaling, or accessing different features available on various platforms. By centralizing the configuration in environment variables, the process becomes streamlined, reducing the need for extensive code modifications when switching between APIs or models.</p>
+<pre><code class="language-python">from dotenv import load_dotenv
+from langchain.chat_models.openai import ChatOpenAI
+
+load_dotenv()
+
+defalut_llm = ChatOpenAI(openai_api_base=os.environ.get(&quot;OPENAI_API_BASE_URL&quot;, &quot;https://api.openai.com/v1&quot;),
+                        openai_api_key=os.environ.get(&quot;OPENAI_API_KEY&quot;, &quot;NA&quot;),
+                        model_name=os.environ.get(&quot;MODEL_NAME&quot;, &quot;gpt-3.5-turbo&quot;))
+
+# Create an agent and assign the LLM
+example_agent = Agent(
+  role='Example Agent',
+  goal='Show how to assign a custom configured LLM',
+  backstory='You hang out in the docs section of GitHub repos.',
+  llm=default_llm
+)
+
+</code></pre>
+<p>The following sections show examples of the configuration settings for various OpenAI API compatible applications and services. We have included links to relavant documentation for the various application and services. </p>
+<h3 id="open-ai">Open AI</h3>
+<p>OpenAI is the default LLM that will be used if you do not specify a value for the <code>llm</code> argument when creating an agent. It will also use default values for the <code>OPENAI_API_BASE_URL</code> and <code>MODEL_NAME</code>. So the only value you need to set when using the OpenAI endpoint is the API key that from your account.</p>
+<pre><code class="language-sh"># Required
+OPENAI_API_KEY=&quot;sk-...&quot;
+
+# Optional
+OPENAI_API_BASE_URL=https://api.openai.com/v1
+MODEL_NAME=&quot;gpt-3.5-turbo&quot;
+</code></pre>
+<h3 id="fastchat">FastChat</h3>
+<p>FastChat is an open platform for training, serving, and evaluating large language model based chatbots.</p>
+<p><a href="https://github.com/lm-sys/FastChat">GitHub</a></p>
+<p><a href="https://github.com/lm-sys/FastChat?tab=readme-ov-file#api">API Documentation</a></p>
+<p>Configuration settings:</p>
+<pre><code class="language-sh"># Required
+OPENAI_API_BASE_URL=&quot;http://localhost:8001/v1&quot;
+OPENAI_API_KEY=NA
+MODEL_NAME='oh-2.5m7b-q51'
+</code></pre>
+<h3 id="lm-studio">LM Studio</h3>
+<p>Discover, download, and run local LLMs</p>
+<p><a href="https://lmstudio.ai/">lmstudio.ai</a></p>
+<p>Configuration settings:</p>
+<pre><code class="language-sh"># Required
+OPENAI_API_BASE_URL=&quot;http://localhost:8000/v1&quot;
+
+OPENAI_API_KEY=NA
+MODEL_NAME=NA
+</code></pre>
+<h3 id="mistral-api">Mistral API</h3>
+<p>Mistral AI's API endpoints </p>
+<p><a href="https://mistral.ai/">Mistral AI</a></p>
+<p><a href="https://docs.mistral.ai/">Documentation</a></p>
+<pre><code class="language-sh">OPENAI_API_KEY=your-mistral-api-key
+OPENAI_API_BASE=https://api.mistral.ai/v1
+MODEL_NAME=&quot;mistral-small&quot; # Check documentation for available models
+</code></pre>
+<h3 id="text-gen-web-ui">text-gen-web-ui</h3>
+<p>A Gradio web UI for Large Language Models.</p>
+<p><a href="https://github.com/oobabooga/text-generation-webui">GitHub</a></p>
+<p><a href="https://github.com/oobabooga/text-generation-webui/wiki/12-%E2%80%90-OpenAI-API">API Documentation</a></p>
+<p>Configuration settings:</p>
+<pre><code class="language-sh"># Required
+API_BASE_URL=http://localhost:5000
+OPENAI_API_KEY=NA
+MODEL_NAME=NA
+</code></pre>
+<h2 id="other-inference-api-endpoints">Other Inference API Endpoints</h2>
+<p>Other platforms offer inference APIs such as Anthropic, Azure, and HuggingFace to name a few. Unfortunately, the APIs on the following platforms are not compatible with the OpenAI API specification. So, the following platforms will require a slightly different configuration than the examples in the previous section.</p>
+<h3 id="azure-open-ai">Azure Open AI</h3>
+<p>Azure hosted OpenAI API endpoints have their own LLM component that needs to be imported from <code>langchain_openai</code>.</p>
+<p>For more information, check out the langchain documenation for <a href="https://python.langchain.com/docs/integrations/llms/azure_openai">Azure OpenAI</a>.</p>
+<pre><code class="language-python">from dotenv import load_dotenv
+from langchain_openai import AzureChatOpenAI
+
+load_dotenv()
+
+default_llm = AzureChatOpenAI(
+    openai_api_version=os.environ.get(&quot;AZURE_OPENAI_VERSION&quot;, &quot;2023-07-01-preview&quot;),
+    azure_deployment=os.environ.get(&quot;AZURE_OPENAI_DEPLOYMENT&quot;, &quot;gpt35&quot;),
+    azure_endpoint=os.environ.get(&quot;AZURE_OPENAI_ENDPOINT&quot;, &quot;https://&lt;your-endpoint&gt;.openai.azure.com/&quot;),
+    api_key=os.environ.get(&quot;AZURE_OPENAI_KEY&quot;)
+)
+
+# Create an agent and assign the LLM
+example_agent = Agent(
+  role='Example Agent',
+  goal='Show how to assign a custom configured LLM',
+  backstory='You hang out in the docs section of GitHub repos.',
+  llm=default_llm
+)
+
+</code></pre>
+<p>Configuration settings:</p>
+<pre><code class="language-sh">AZURE_OPENAI_VERSION=&quot;2022-12-01&quot;
+AZURE_OPENAI_DEPLOYMENT=&quot;&quot;
+AZURE_OPENAI_ENDPOINT=&quot;&quot;
+AZURE_OPENAI_KEY=&quot;&quot;
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e1c3ead8.min.js"></script>
+      
+    
+  </body>
+</html>
